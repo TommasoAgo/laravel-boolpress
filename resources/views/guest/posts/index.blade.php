@@ -10,8 +10,8 @@
                     <div class="card">
                         <div class="card-body">
                           <h5 class="card-title"> {{ $post->title }} </h5>
-                          <a href="{{ route('admin.posts.show', [
-                              'post' => $post->id
+                          <a href="{{ route('blog-page', [
+                              'slug' => $post->slug
                           ]) }}" class="btn btn-primary">Vai al post</a>
                         </div>
                       </div>

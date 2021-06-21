@@ -16,4 +16,20 @@ class PostController extends Controller
 
         return view('guest.posts.index', $data);
     }  
+
+
+    // SLUG
+    public function show($slug) {
+        $post = Post::where('slug', '=', $slug)->first();
+
+        if(!$post) {
+            abort('404');
+        }
+
+        $data = [
+            'post' => $post
+        ];
+
+        return view('guest.posts.show', $data);
+    }
 }

@@ -8,7 +8,6 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div>
-                    <h1>Ciao loggato</h1>
 
                     <a href="{{ route('admin.posts.index') }}">Vai ai tuoi post</a>
                 </div>

@@ -20,7 +20,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 // Public Posts
-RoutE::get('/blog', 'PostController@index');
+Route::get('/blog', 'PostController@index')->name('blog');
+Route::get('/blog/{slug}', 'PostController@show')->name('blog-page');
 
 // Admin Routes
 Route::prefix('admin')
