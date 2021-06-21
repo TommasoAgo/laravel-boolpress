@@ -2,8 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h1>Ciao sono la home pubblica</h1>
+        <h1>Home</h1>
 
-        <a href="{{ route('admin.posts.index') }}">Accedi per vedere i post</a>
+        <a href="{{ route('admin.posts.index') }}">Accedi</a>
+
+        <div>
+            oppure
+        </div>
+
+        <a href="{{ route('guest.posts.index') }}">Esplora il blog</a>
     </div>
 @endsection

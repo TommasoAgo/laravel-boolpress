@@ -12,11 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
- 
+use Illuminate\Support\Facades\Auth; 
+
 Auth::routes();
 
 // Public Home Route
 Route::get('/', 'HomeController@index')->name('home');
+
+// Public Posts
+RoutE::get('/blog', 'PostController@index');
 
 // Admin Routes
 Route::prefix('admin')
