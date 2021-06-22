@@ -81,7 +81,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $data = [
-            'post' => $post
+            'post' => $post,
+            'post_category' => $post->category
         ];
 
         return view('admin.posts.show', $data);
