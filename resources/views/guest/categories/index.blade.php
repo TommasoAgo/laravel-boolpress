@@ -2,17 +2,16 @@
 
 @section('content')
     <div class="container">
-        <h1>Guarda i post</h1>
+        <h1>Categorie</h1>
 
         <div class="row">
-            @foreach ($posts as $post)
+            @foreach ($categories as $category)
                 <div class="col-6">
                     <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title"> {{ $post->title }} </h5>
-                          <a href="{{ route('blog-page', [
-                              'slug' => $post->slug
-                          ]) }}" class="btn btn-primary">Vai alla Ricetta</a>
+                          <h5 class="card-title"> {{ $category->name }} </h5>
+                          <a class="btn btn-primary" href="{{ route('category-page',
+                           ['slug' => $category->slug]) }}">Vai</a>
                         </div>
                       </div>
                 </div>

@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Home</h1>
 
-        <a class="btn btn-primary" href="{{ route('admin.posts.index') }}">Gestisci i tuoi post</a>
+        <a class="btn btn-primary" href="{{ route('admin.posts.index') }}">Gestisci le tue ricette</a>
 
         <div>
             oppure

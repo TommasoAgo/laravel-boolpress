@@ -9,7 +9,7 @@
 
                 <div>
 
-                    <a href="{{ route('admin.posts.index') }}">Vai ai tuoi post</a>
+                    <a class="btn btn-primary" href="{{ route('admin.posts.index') }}">Vai alle ricette</a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))
