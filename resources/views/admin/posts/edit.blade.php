@@ -4,7 +4,7 @@
         
     <div class="container">
 
-        <h1>Modifica il Post {{ $post->title }}</h1>
+        <h1>Modifica il Post: {{ $post->title }}</h1>
 
         {{-- Validator Errors --}}
         @if ($errors->any())
@@ -32,6 +32,19 @@
             <div class="form-group">
                 <label for="content">Contenuto del post</label>
                 <textarea name="content" class="form-control" id="content" cols="30" rows="10">{{ old('content', $post->content) }}</textarea>
+            </div>
+
+            {{-- Category --}}
+            <div class="form-group">
+                <label for="category_id">Categoria</label>
+                <select class="form-control" name="category_id" id="category_id">
+                    <option value="">Nessuna</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" 
+                            {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}> {{ $category->name }} 
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <input class="btn btn-primary" type="submit" value="Modifica Post">

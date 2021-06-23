@@ -50,7 +50,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.posts.create') }}">{{ __('Crea un nuovo post') }}</a>
+                                <a class="nav-link" href="{{ route('admin.posts.create') }}">{{ __('Crea una nuova ricetta') }}</a>
                             </li>
 
                             <li class="nav-item dropdown">
