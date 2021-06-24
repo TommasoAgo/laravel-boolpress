@@ -27,7 +27,8 @@ class PostController extends Controller
         }
 
         $data = [
-            'post' => $post
+            'post' => $post,
+            'post_tags' => $post->tags
         ];
 
         return view('guest.posts.show', $data);

@@ -90,7 +90,8 @@ class PostController extends Controller
     {
         $data = [
             'post' => $post,
-            'post_category' => $post->category
+            'post_category' => $post->category,
+            'post_tags' => $post->tags
         ];
 
         return view('admin.posts.show', $data);
