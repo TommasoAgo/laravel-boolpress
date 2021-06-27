@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Tag;
+use Hamcrest\Arrays\IsArray;
 
 class PostController extends Controller
 {
@@ -34,9 +36,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.create', $data);
@@ -53,7 +57,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
         ]);
 
         $new_post_data = $request->all();
@@ -76,6 +81,12 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($new_post_data);
         $new_post->save();
+
+        // Dobbiamo fare il Sync per i tags
+        if (isset($new_post_data['tags']) && is_array($new_post_data['tags'])) {
+            $new_post->tags()->sync($new_post_data['tags']);
+        }
+        
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -107,10 +118,12 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
         
         $data = [
             'post' => $post,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -128,7 +141,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
         ]);
 
         $modif_post_data = $request->all();    
@@ -157,6 +171,14 @@ class PostController extends Controller
 
         $post->update($modif_post_data);
 
+        // Tags
+        if(isset($modif_post_data['tags']) && is_array($modif_post_data['tags'])) {
+            $post->tags()->sync($modif_post_data['tags']);
+        }
+        else {
+            $post->tags()->sync([]);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -169,6 +191,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id); 
+
+        // Eseguire il Detach per i Tags
+        $post->tags()->sync([]);
 
         $post->delete();
 

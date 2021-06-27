@@ -10,6 +10,6 @@
             oppure
         </div>
 
-        <a class="btn btn-primary" href="{{ route('blog') }}">Esplora il blog</a>
+        <a class="btn btn-primary" href="{{ route('blog') }}">Guarda tutte le ricette</a>
     </div>
 @endsection

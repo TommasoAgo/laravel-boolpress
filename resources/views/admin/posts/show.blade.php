@@ -13,7 +13,6 @@
         @endif
 
         {{-- Tags --}}
-        @if ($post->tags)
         <div class="mt-2 mb-2">
             <strong>Tags:</strong>
             @foreach ($post_tags as $tag)
@@ -21,8 +20,6 @@
             @endforeach
         </div>
         
-        @endif
-
         <p>
             {{ $post->content }}
         </p>
