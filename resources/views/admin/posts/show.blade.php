@@ -4,6 +4,11 @@
     <div class="container">
         <h1> {{ $post->title }} </h1>
 
+        {{-- Inseriamo l'immagine caricata dall'utente --}}
+        <div>
+            <img src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+        </div>
+
         {{-- Come nello show in Guest, faccio un if per verificare se il post ha la categoria --}}
         @if ($post->category)
         <div class="mt-2 mb-2">

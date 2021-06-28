@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Category;
 use App\Tag;
 use Hamcrest\Arrays\IsArray;
@@ -58,7 +59,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            'cover-image' => 'image|max:40000'
         ]);
 
         $new_post_data = $request->all();
@@ -77,6 +79,16 @@ class PostController extends Controller
         }
 
         $new_post_data['slug'] = $new_slug;
+
+        // Se c'è un'immagine caricata dall'utente la salvo in storage
+        // e aggiungo il path relativo a cover in $new_post_data
+        if (isset($new_post_data['cover-image'])) {
+            $new_img_path = Storage::put('posts-cover', $new_post_data['cover-image']);
+
+            if ($new_img_path) {
+                $new_post_data['cover'] = $new_img_path;
+            }
+        }
 
         $new_post = new Post();
         $new_post->fill($new_post_data);

@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Crea un nuovo post</h1>
 
-    <div class="container">
+    
 
         {{-- Validator Errors --}}
         @if ($errors->any())
@@ -49,26 +49,30 @@
             </div>
 
             {{-- Tags --}}
-            <h3>Tags</h3>
+            <div class="form-group">
+                <h3>Tags</h3>
 
-            @foreach ($tags as $tag)
-            <div class="form-check">
-                <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="tag-{{ $tag->id }}">
-                  {{ $tag->name }}
-                </label>
-              </div>
-            @endforeach
+                @foreach ($tags as $tag)
+                <div class="form-check">
+                    <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">
+                    {{ $tag->name }}
+                    </label>
+                </div>
+                @endforeach 
+            </div>
+            
 
             {{-- IMG Upload --}}
-            <h3 class="my-20">Aggiungi un'immagine</h3>
+            
             {{-- Aggiungo enctype al tag 'form' per consentire il caricamento di file --}}
-            <div class="container">
-                <input type="file">
+            <div class="form-group">
+                <label for="cover-image"><strong>Immagine di copertina</strong></label>
+                <input class="form-control-file" type="file" name="cover-image" id="cover-image">
             </div>
         
             {{-- Submit --}}
-            <div class="container">
+            <div>
                 <input class="btn btn-primary" type="submit" value="Salva nuovo Post">
             </div> 
         </form>
