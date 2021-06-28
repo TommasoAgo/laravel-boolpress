@@ -18,7 +18,7 @@
         @endif
 
         {{-- EDIT Form --}}
-        <form action=" {{ route('admin.posts.update', [ 'post' => $post->id ]) }} " method="post">
+        <form action=" {{ route('admin.posts.update', [ 'post' => $post->id ]) }} " method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -63,6 +63,22 @@
                 </label>
               </div>
             @endforeach
+
+            {{-- IMG Upload --}}
+            
+            {{-- Aggiungo enctype al tag 'form' per consentire il caricamento di file --}}
+            <div class="form-group">
+                <label for="cover-image"><strong>Immagine di copertina</strong></label>
+                <input class="form-control-file" type="file" name="cover-image" id="cover-image">
+            </div>
+
+            @if ($post->cover)
+                <div>
+                    <h4>Anteprima immagine</h4>
+
+                    <img src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                </div>
+            @endif
 
             <input class="btn btn-primary" type="submit" value="Modifica Post">
         </form>

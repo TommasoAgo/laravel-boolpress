@@ -60,6 +60,7 @@ class PostController extends Controller
             'content' => 'required|max:60000',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
+            // Validazione per l'immagine (DEVE ESSERE UN FILE IMMAGINE)
             'cover-image' => 'image|max:40000'
         ]);
 
@@ -154,7 +155,9 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            // Validazione per l'immagine (DEVE ESSERE UN FILE IMMAGINE)
+            'cover-image' => 'image|max:40000'
         ]);
 
         $modif_post_data = $request->all();    
@@ -179,6 +182,16 @@ class PostController extends Controller
             }
 
             $modif_post_data['slug'] = $new_slug;
+        }
+
+        // Se c'è un'immagine caricata dall'utente la salvo in storage
+        // e aggiungo il path relativo a cover in $new_post_data
+        if (isset($modif_post_data['cover-image'])) {
+            $img_path = Storage::put('posts-cover', $modif_post_data['cover-image']);
+
+            if ($img_path) {
+                $modif_post_data['cover'] = $img_path;
+            }
         }
 
         $post->update($modif_post_data);

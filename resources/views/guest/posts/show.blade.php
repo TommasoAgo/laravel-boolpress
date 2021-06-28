@@ -5,6 +5,11 @@
         {{-- Titolo --}}
         <h1> {{ $post->title }} </h1>
 
+        {{-- Inseriamo l'immagine caricata dall'utente --}}
+        <div>
+            <img src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+        </div>
+
         {{-- Faccio un if per verificare che il post abbia effettivamente la sua categoria --}}
         @if($post->category)
 
