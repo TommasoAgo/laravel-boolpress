@@ -18,7 +18,7 @@
         @endif
 
         {{-- CREATE Form --}}
-        <form action=" {{ route('admin.posts.store') }} " method="post">
+        <form action=" {{ route('admin.posts.store') }} " method="post" enctype="multipart/form-data" >
             @csrf
             @method('POST')
 
@@ -60,7 +60,17 @@
               </div>
             @endforeach
 
-            <input class="btn btn-primary" type="submit" value="Salva nuovo Post">
+            {{-- IMG Upload --}}
+            <h3 class="my-20">Aggiungi un'immagine</h3>
+            {{-- Aggiungo enctype al tag 'form' per consentire il caricamento di file --}}
+            <div class="container">
+                <input type="file">
+            </div>
+        
+            {{-- Submit --}}
+            <div class="container">
+                <input class="btn btn-primary" type="submit" value="Salva nuovo Post">
+            </div> 
         </form>
     </div>
 @endsection
